@@ -1,0 +1,34 @@
+INSERT INTO oauth_client_details (client_id, client_secret, web_server_redirect_uri, scope, access_token_validity,
+                                  refresh_token_validity, resource_ids, authorized_grant_types, additional_information)
+VALUES ('cardoor', '{bcrypt}$2a$10$5N8YokL5aPy.GbY8MFE.v.jDDue69YfFtrIojrOm77pMJSg8w2YRy', 'http://localhost:8080/code',
+        'READ,WRITE', '3600', '10000', 'inventory,payment', 'authorization_code,password,refresh_token,implicit', '{}');
+
+INSERT INTO permission (name)
+VALUES ('create_profile'),
+       ('read_profile'),
+       ('update_profile'),
+       ('delete_profile');
+
+INSERT INTO role (name)
+VALUES ('ROLE_ADMIN'),
+       ('ROLE_USER');
+
+INSERT INTO permission_role (permission_id, role_id)
+VALUES (1, 1), /* create -> ROLE_ADMIN */
+       (2, 1), /* read -> ROLE_ADMIN */
+       (3, 1), /* update -> ROLE_ADMIN */
+       (4, 1), /* delete -> ROLE_ADMIN */
+       (2, 2), /* create -> ROLE_USER */
+       (3, 2); /* read -> ROLE_USER */
+
+INSERT INTO user (id, username, password, email, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked)
+VALUES ('1', 'manoj', '{bcrypt}$2a$10$QFJ2hbr/p5UdHoAF8FxtRuhPvy33r2K36vM4H21CoVsxsk0MDhEU6', 'hasitha@no.com', '1',
+        '1', '1', '1');
+
+INSERT INTO user (id, username, password, email, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked)
+VALUES ('2', 'piumal', '{bcrypt}$2a$10$Agyj/A7H.F43SoPZDHtvruIKVjBwOEzs00num4TN.7rRMK0raMwaO', 'manoj@no.com', '1', '1',
+        '1', '1');
+
+INSERT INTO ROLE_USER (ROLE_ID, USER_ID)
+VALUES (1, 1), /* manoj - ADMIN */
+       (2, 2); /* piumal - USER */
